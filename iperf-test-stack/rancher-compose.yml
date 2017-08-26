@@ -1,0 +1,13 @@
+version: '2'
+services:
+  pilot:
+    scale: 1
+    start_on_create: true
+  iperfserver:
+    scale: 2
+    start_on_create: true
+  logger:
+    scale: 1
+    start_on_create: true
+  iperfclient:
+    start_on_create: true

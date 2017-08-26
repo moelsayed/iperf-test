@@ -1,0 +1,50 @@
+version: '2'
+services:
+  pilot:
+    image: ubuntu
+    stdin_open: true
+    tty: true
+    command:
+    - bash
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.container.start_once: 'true'
+  iperfserver:
+    image: networkstatic/iperf3
+    stdin_open: true
+    tty: true
+    ports:
+    - 5201:5201/tcp
+    command:
+    - iperf3
+    - -s
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.scheduler.affinity:host_label: iperf_server=true
+  logger:
+    image: melsayed/flask-logger
+    stdin_open: true
+    tty: true
+    links:
+    - pilot:pilot
+    - iperfserver:iperfserver
+    ports:
+    - 80:80/tcp
+    labels:
+      io.rancher.container.pull_image: always
+  iperfclient:
+    image: melsayed/iperf-client
+    stdin_open: true
+    tty: true
+    links:
+    - pilot:pilot
+    - iperfserver:iperfserver
+    - logger:logger
+    command:
+    - /work/run.sh
+    - iperfserver
+    - logger
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.scheduler.affinity:host_label_ne: iperf_server=true
+      io.rancher.scheduler.global: 'true'
