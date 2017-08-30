@@ -26,9 +26,9 @@ self_create_index = requests.get(self_url , headers=headers).json()
 r = requests.get(meta_url + iperf_server , headers=headers)                               
 iperf_service = r.json()                                                                  
 
-for container in iperf_service['containers']:                                                  
-    if container['create_index'] == self_create_index:
-        iperf_server_ip = container['primary_ip']
+for server_container in iperf_service['containers']:                                                  
+    if server_container['create_index'] == self_create_index:
+        iperf_server_ip = server_container['primary_ip']
                                                                                           
                                                                                           
 # I am looping in bash becasue the module is shitty and can't handle it.                  
