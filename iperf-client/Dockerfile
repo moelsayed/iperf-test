@@ -5,3 +5,4 @@ RUN mkdir /work
 ADD iperf-client.py /work
 ADD run.sh /work
 RUN chmod +x /work/run.sh
+ENTRYPOINT []
