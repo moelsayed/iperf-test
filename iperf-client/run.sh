@@ -2,6 +2,6 @@
 
 while true
 do 
-	python iperf-client.py $1 -l $s
+	python /work/iperf-client.py -s $1 -l $2
 	sleep 1
 done
