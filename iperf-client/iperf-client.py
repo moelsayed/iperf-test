@@ -4,7 +4,7 @@ import requests
 import sys, getopt, random, time, os                                                      
                                                                                           
 meta_url = 'http://rancher-metadata/latest/self/stack/services/'                          
-self_url = 'http://rancher-metadata/latest/self/container/create_index'
+self_url = 'http://rancher-metadata/latest/self/container/service_index'
 headers = {'Accept': 'application/json'}                                                  
 container = os.uname()[1]                                                                 
 
@@ -21,13 +21,13 @@ for opt, arg in opts:
         logger_server = arg                                                               
                                                                                           
                                                                                           
-self_create_index = requests.get(self_url , headers=headers).json()
+self_service_index = requests.get(self_url , headers=headers).json()
 
 r = requests.get(meta_url + iperf_server , headers=headers)                               
 iperf_service = r.json()                                                                  
 
 for server_container in iperf_service['containers']:                                                  
-    if server_container['create_index'] == self_create_index:
+    if server_container['service_index'] == self_service_index:
         iperf_server_ip = server_container['primary_ip']
                                                                                           
                                                                                           
