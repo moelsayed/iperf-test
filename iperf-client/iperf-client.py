@@ -28,15 +28,15 @@ iperf_service = r.json()
 
 for container in iperf_service['containers']:                                                  
     if container['create_index'] == self_create_index:
-        iperf_server = container['primary_ip']
+        iperf_server_ip = container['primary_ip']
                                                                                           
                                                                                           
 # I am looping in bash becasue the module is shitty and can't handle it.                  
 c = iperf3.Client()                                                                       
-c.server_hostname = iperf_server                                          
+c.server_hostname = iperf_server_ip                                          
 c.port = 5201                                                                             
 c.duration = 30                                                                           
 resultes = c.run()                                                                        
-print iperf_server,container, resultes.sent_Mbps
+print iperf_server_ip ,container, resultes.sent_Mbps
 requests.get("http://%s/?cont=%s&mps=%d" % (logger_server, container, resultes.sent_Mbps))
 
