@@ -46,5 +46,5 @@ services:
     - logger
     labels:
       io.rancher.container.pull_image: always
-      io.rancher.scheduler.affinity:host_label_ne: iperf_server=true
+      io.rancher.scheduler.affinity:host_label: iperf_client=true
       io.rancher.scheduler.global: 'true'
