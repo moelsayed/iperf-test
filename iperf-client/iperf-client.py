@@ -34,6 +34,6 @@ c.server_hostname = random.choice(iperf_addrs)
 c.port = 5201                                                                             
 c.duration = 30                                                                           
 resultes = c.run()                                                                        
-print container, resultes.sent_Mbps
+print c.server_hostname ,container, resultes.sent_Mbps
 requests.get("http://%s/?cont=%s&mps=%d" % (logger_server, container, resultes.sent_Mbps))
 
