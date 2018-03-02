@@ -36,6 +36,7 @@ c = iperf3.Client()
 c.server_hostname = iperf_server_ip                                          
 c.port = 5201                                                                             
 c.duration = 30                                                                           
+c.bandwidth = 8 *1000 *1000
 resultes = c.run()                                                                        
 print iperf_server_ip ,container, resultes.sent_Mbps
 requests.get("http://%s/?cont=%s&mps=%d" % (logger_server, container, resultes.sent_Mbps))
